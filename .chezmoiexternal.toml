@@ -5,7 +5,7 @@
   url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
   exact = false
   stripComponents = 1
-{{endif}}
+{{end}}
 
 {{if not .container}} # no point in adding imgcat for envs that do not support ssh
 [".local/bin/imgcat"]
