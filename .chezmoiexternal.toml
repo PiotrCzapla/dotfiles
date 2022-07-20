@@ -1,16 +1,22 @@
 #https://www.chezmoi.io/user-guide/include-files-from-elsewhere/#include-a-subdirectory-with-selected-files-from-a-url
+{{if not .colab}}
 [".oh-my-zsh"]
   type = "archive"
   url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
   exact = false
   stripComponents = 1
+{{endif}}
 
-[".hammerspoon"] 
-  type="git-repo"
-  url="https://github.com/PiotrCzapla/hammerspoon-config.git"
-
+{{if not .container}} # no point in adding imgcat for envs that do not support ssh
 [".local/bin/imgcat"]
   type="file"
   url="https://iterm2.com/utilities/imgcat"
   executable = true
   exact = true
+{{end}}
+
+{{if eq .chezmoi.os "darwin" }}
+[".hammerspoon"] 
+  type="git-repo"
+  url="https://github.com/PiotrCzapla/hammerspoon-config.git"
+{{end}}
