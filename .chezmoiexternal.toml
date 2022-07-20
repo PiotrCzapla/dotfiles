@@ -1,4 +1,16 @@
 #https://www.chezmoi.io/user-guide/include-files-from-elsewhere/#include-a-subdirectory-with-selected-files-from-a-url
+
+{{if not (eq .chezmoi.os "darwin") }}
+[".local/bin/gopass"]
+  type = "file"
+  url = "https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz"
+  executable = true
+  extract = true 
+  [".local/bin/gopass".filter]
+        command = "tar"
+        args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "gopass"] 
+{{end}}
+
 {{if not .colab}}
 [".oh-my-zsh"]
   type = "archive"
