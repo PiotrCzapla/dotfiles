@@ -1,0 +1,8 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+{{if not .container}}
+    sudo apt update
+{{end}}
+{{if not .colab}} sudo apt install -y ripgrep {{end}}
+
+{{ end -}}
