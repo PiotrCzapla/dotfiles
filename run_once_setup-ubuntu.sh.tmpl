@@ -1,0 +1,6 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+sudo apt update
+sudo apt install -y ripgrep
+
+{{ end -}}

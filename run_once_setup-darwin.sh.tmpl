@@ -1,0 +1,12 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+brew bundle --no-lock --file=/dev/stdin <<EOF
+brew "git"
+brew "ripgrep"
+cask "google-chrome"
+cask "1password/tap/1password-cli"
+EOF
+
+defaults write -g ApplePressAndHoldEnabled -bool false
+mkdir -p ~/Screenshots/ ; defaults write com.apple.screencapture location ~/Screenshots/
+{{ end -}}

@@ -1,0 +1,5 @@
+{{- if eq .chezmoi.os "darwin"}}
+{{ (onepasswordDetailsFields "hfomufvmur5iufmk3r6ciutrsu").notesPlain.value }} 
+{{ else if eq .chezmoi.os "linux" }}
+
+{{ end }}
