@@ -4,10 +4,9 @@
 
 {{$colab := env "COLAB_GPU" |not|not  -}}
 {{$codespaces := env "CODESPACES" | not | not -}}
-    
+
 [data]
     colab = {{$colab}}
     codespaces = {{$codespaces}}
     container = {{or $colab  $codespaces}}
-
 # chezmoi execute-template  '{{.codespaces}} {{.colab}} {{.container}}'
