@@ -1,0 +1,37 @@
+#!/bin/bash
+function setup () {
+    {{if eq .chezmoi.os "darwin"}}
+    _files=(/Volumes/GoogleDrive-*/My\ Drive/config)
+    gdrive=${_files[0]}
+    {{else if .colab}}
+    gdrive=/gdrive/MyDrive/config/
+    {{else}}
+    gdrive=/tmp/gdrive-config/
+    {{end}}
+
+    (gpg -K  | grep me@piotrczapla.coccm > /dev/null) && exit 0
+    if [ ! -e "$gdrive" ] ; then
+        echo "Unable to find gdrive: $gdrive"
+        exit 1;
+    else
+        echo "Found gdrive in $gdrive"
+    fi
+    gpg --pinentry-mode=loopback --batch --import "$gdrive/key.gpg"
+}
+
+function die(){
+    echo $@
+    exit 1;
+}
+
+function preset_pass() {
+    [ "$API_PASSPHRASE"=="" ] || die "Provide gpg password for API key in PRESET_PASSPHRASE env variable" 
+    PRESET_PASSPHRASE="$(gpgconf --list-dirs libexecdir)"/gpg-preset-passphrase --preset 
+    # api ssh key
+    printenv "API_PASSPHRASE" | $PRESET_PASSPHRASE B734054E8FD0AC2977D39A7CE60188C997008AEC
+    # api encryption key
+    printenv "API_PASSPHRASE" | $PRESET_PASSPHRASE EE37281B64C350D60D0D7C862C4D84A4AA72CB92
+}
+
+setup
+preset_pass
