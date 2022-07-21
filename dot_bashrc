@@ -1,0 +1,3 @@
+if ! pgrep -x -u "${USER}" gpg-agent &> /dev/null; then
+       gpg-connect-agent /bye &> /dev/null
+fi
