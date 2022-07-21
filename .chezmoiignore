@@ -1,2 +1,11 @@
 *.md  
 */*.md
+
+{{if eq .chezmoi.os "darwin"}}
+dot_bashrc
+{{else if .colab}}
+dot_zsh_d
+dot_zshrc
+{{else}}
+
+{{end}}
