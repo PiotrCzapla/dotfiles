@@ -9,7 +9,7 @@ function setup () {
     gdrive=/tmp/gdrive-config/
     {{end}}
 
-    (gpg -K  | grep me@piotrczapla.coccm > /dev/null) && exit 0
+    (gpg -K  | grep me@piotrczapla.com > /dev/null) && return 0
     if [ ! -e "$gdrive" ] ; then
         echo "Unable to find gdrive: $gdrive"
         exit 1;
@@ -25,12 +25,13 @@ function die(){
 }
 
 function preset_pass() {
-    [ "$API_PASSPHRASE"=="" ] || die "Provide gpg password for API key in PRESET_PASSPHRASE env variable" 
-    PRESET_PASSPHRASE="$(gpgconf --list-dirs libexecdir)"/gpg-preset-passphrase --preset 
+    [ "$API_PASSPHRASE" == "" ] && die "Provide gpg password for API key in APU_PASSPHRASE env variable" 
+    
+    echo Setting passphrase for ssh key and encryption key
     # api ssh key
-    printenv "API_PASSPHRASE" | $PRESET_PASSPHRASE B734054E8FD0AC2977D39A7CE60188C997008AEC
+    printenv "API_PASSPHRASE" | "$(gpgconf --list-dirs libexecdir)"/gpg-preset-passphrase --preset B734054E8FD0AC2977D39A7CE60188C997008AEC
     # api encryption key
-    printenv "API_PASSPHRASE" | $PRESET_PASSPHRASE EE37281B64C350D60D0D7C862C4D84A4AA72CB92
+    printenv "API_PASSPHRASE" | "$(gpgconf --list-dirs libexecdir)"/gpg-preset-passphrase --preset  EE37281B64C350D60D0D7C862C4D84A4AA72CB92
 }
 
 setup
