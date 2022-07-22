@@ -1,6 +1,9 @@
 *.md  
 */*.md
 
+i*.py
+i*.sh
+
 {{if eq .chezmoi.os "darwin"}}
 dot_bashrc
 {{else if .colab}}
