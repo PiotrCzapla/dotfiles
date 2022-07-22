@@ -6,7 +6,7 @@ function update_known_hosts() {
     ssh-keyscan -t rsa $host >> ~/.ssh/known_hosts
     ssh-keyscan -H $host >> ~/.ssh/known_hosts
 }
-
+mkdir -p ~/.ssh
 HOSTS=(github.com  gitlab.com)
 for host in ${HOSTS[@]} ; do
     update_known_hosts $host
