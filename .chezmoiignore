@@ -3,6 +3,7 @@
 
 i*.py
 i*.sh
+alfred/*
 
 {{if eq .chezmoi.os "darwin"}}
 dot_bashrc

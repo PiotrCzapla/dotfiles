@@ -31,8 +31,11 @@
 {{end}}
 
 {{if eq .chezmoi.os "darwin" }}
-# hammersppon worsk only on mac
+# hammersppon works only on mac
 [".hammerspoon"] 
   type="git-repo"
   url="https://github.com/PiotrCzapla/hammerspoon-config.git"
+[".local/share/alfred"]
+  type="git-repo"
+  url="git@github.com:PiotrCzapla/alfred.git"
 {{end}}
