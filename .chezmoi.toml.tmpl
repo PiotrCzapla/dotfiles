@@ -5,8 +5,16 @@
 {{$colab := env "COLAB_GPU" |not|not  -}}
 {{$codespaces := env "CODESPACES" | not | not -}}
 
+{{$gdrive := "/tmp/gdrive/config/"}}
+{{if eq .chezmoi.os "darwin"}}
+{{$gdrive = output "bash" "-c" "echo -n /Volumes/GoogleDrive-*/My\\ Drive/config"  }}
+{{else if .colab}}
+{{$gdrive = "/gdrive/MyDrive/config/" }}
+{{end}}
+
 [data]
     colab = {{$colab}}
     codespaces = {{$codespaces}}
-    container = {{or $colab  $codespaces}}
+    container = {{or $colab $codespaces}}
+    gdrive = "{{$gdrive}}"
 # chezmoi execute-template  '{{.codespaces}} {{.colab}} {{.container}}'

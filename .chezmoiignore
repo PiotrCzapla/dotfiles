@@ -5,7 +5,6 @@ i*.py
 i*.sh
 
 {{if eq .chezmoi.os "darwin"}}
-dot_bashrc
 {{else if .colab}}
 dot_zsh_d
 dot_zshrc
