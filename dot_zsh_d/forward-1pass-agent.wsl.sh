@@ -1,3 +1,4 @@
+# direct copy from https://stuartleeks.com/posts/wsl-ssh-key-forward-to-windows/#final-solution
 # Configure ssh forwarding
 export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
 # need `ps -ww` to get non-truncated command for matching
