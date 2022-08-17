@@ -4,13 +4,13 @@
 i*.py
 i*.sh
 alfred/*
+**/*.wsl.*
+{{if not .wsl}} *.wsl.* {{end}}
 
 {{if eq .chezmoi.os "darwin"}}
 {{else if .colab}}
 dot_zsh_d
 dot_zshrc
-{{else if not .wsl}}
-*.wsl.*
 {{else}}
 
 {{end}}
