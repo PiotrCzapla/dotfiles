@@ -9,6 +9,8 @@ alfred/*
 {{else if .colab}}
 dot_zsh_d
 dot_zshrc
+{{else if not .wsl}}
+*.wsl.*
 {{else}}
 
 {{end}}

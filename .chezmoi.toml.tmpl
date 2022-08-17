@@ -4,6 +4,7 @@
 
 {{$colab := env "COLAB_GPU" |not|not  -}}
 {{$codespaces := env "CODESPACES" | not | not -}}
+{{$wsl := (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}
 
 {{$gdrive := "/tmp/gdrive/config/"}}
 {{if eq .chezmoi.os "darwin"}}
@@ -13,9 +14,12 @@
 {{end}}
 
 {{$conda := glob "{/usr/local/mambaforge,/opt/homebrew/Caskroom/mambaforge,./opt/mambaforge}" | first}}
+
 [data]
     colab = {{$colab}}
     codespaces = {{$codespaces}}
+    container = {{or $colab  $codespaces}}
+    wsl = {{$wsl}
     container = {{or $colab $codespaces}}
     gdrive = "{{$gdrive}}"
     conda_home = "{{$conda}}"
