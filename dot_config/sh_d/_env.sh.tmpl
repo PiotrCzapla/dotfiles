@@ -1,9 +1,12 @@
 #!/bin/sh
 export PATH="$HOME/.local/bin":$PATH
+export CONDA_HOME="{{.conda_home}}"
 
 {{if eq .chezmoi.os "darwin"}}
 OP_BIOMETRIC_UNLOCK_ENABLED=true
 export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+{{output "op" "read" "op://_scripts/jb-aws.conf/env"}}
 {{end}}
 
 source ~/.gnupg/init.sh
+

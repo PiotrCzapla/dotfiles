@@ -12,9 +12,11 @@
 {{$gdrive = "/gdrive/MyDrive/config/" }}
 {{end}}
 
+{{$conda := glob "{/usr/local/mambaforge,/opt/homebrew/Caskroom/mambaforge,./opt/mambaforge}" | first}}
 [data]
     colab = {{$colab}}
     codespaces = {{$codespaces}}
     container = {{or $colab $codespaces}}
     gdrive = "{{$gdrive}}"
+    conda_home = "{{$conda}}"
 # chezmoi execute-template  '{{.codespaces}} {{.colab}} {{.container}}'

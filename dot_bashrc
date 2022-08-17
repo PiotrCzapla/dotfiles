@@ -1,1 +1,1 @@
-source ~/.gnupg/init.sh
+source ~/.config/bash_d/*.sh
