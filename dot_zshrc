@@ -102,3 +102,5 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias spawn-gpu=conda run -n spawn-gpu python -m spawn_gpu
