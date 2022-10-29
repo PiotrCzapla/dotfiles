@@ -10,3 +10,7 @@ export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agen
 
 source ~/.gnupg/init.sh
 
+if [[ -d $HOME/.local/share/gopass/stores/root ]] && gopass test >/dev/null 2>&1 ; then
+    export JARVIS_TOKEN=$(gopass jarvislabs/token)
+    export JARVIS_USER_ID=$(gopass jarvislabs/user_id)
+fi

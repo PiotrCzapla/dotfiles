@@ -1,9 +1,0 @@
-#!/bin/bash
-ENV_TO_EXP="(PATH|GPG_TTY|SSH_AUTH_SOCK)"
-F=/tmp/jupyter-env.py
-rm -f $F
-echo 'import os' > $F
-chmod 600 $F
-echo 'os.environ.update(dict(' >> $F
-(bash --login -c "export") | grep -E "$ENV_TO_EXP"| sed 's/declare -x //g'| sed 's/$/,/g' >> $F
-echo '))' >>$F
