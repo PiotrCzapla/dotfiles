@@ -103,4 +103,5 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias spawn-gpu=conda run -n spawn-gpu python -m spawn_gpu
+alias spawn-gpu="op run -- conda run -n spawn-gpu python -m spawn_gpu"
+alias nbdev_release_gh='op run -- nbdev_release_gh'
