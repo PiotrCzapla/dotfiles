@@ -7,12 +7,14 @@ OP_BIOMETRIC_UNLOCK_ENABLED=true
 export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 {{output "op" "read" "op://_scripts/jb-aws.conf/env"}}
 
-export GITHUB_TOKEN="op://_scripts/github-token/password" 
+export GITHUB_TOKEN="op://_scripts/github-token/password"
+export JARVIS_TOKEN_TEST={{onepasswordRead "op://_scripts/JarvisLabs-test/token"}}
+export JARVIS_USER_ID_TEST={{onepasswordRead "op://_scripts/JarvisLabs-test/username" }}
 {{end}}
 
 source ~/.gnupg/init.sh
 
 if [[ -d $HOME/.local/share/gopass/stores/root ]] && gopass test >/dev/null 2>&1 ; then
     export JARVIS_TOKEN=$(gopass jarvislabs/token)
-    export JARVIS_USER_ID=$(giiopass jarvislabs/user_id)
+    export JARVIS_USER_ID=$(gopass jarvislabs/user_id)
 fi
