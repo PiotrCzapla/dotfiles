@@ -105,6 +105,6 @@ fi
 
 alias spawn-gpu="op run -- conda run -n spawn-gpu python -m spawn_gpu"
 alias nbdev_release_gh='op run -- nbdev_release_gh'
-alias galatea_unlock='echo -n $(op read op://_scripts/galatea.unlock/password) | ssh galatea.unlock cryptroot-unlock'
+alias galatea_unlock='op read -n op://_scripts/galatea.unlock/password | ssh galatea.unlock cryptroot-unlock'
 
-alias galatea_sync='rsync -av ~/Workspace/fastai/part2 galatea:~/part2' 
+alias galatea_sync='rsync -av ~/Workspace/fastai/part2 galatea:~/part2'
