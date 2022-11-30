@@ -108,3 +108,17 @@ alias nbdev_release_gh='op run -- nbdev_release_gh'
 alias galatea_unlock='op read -n op://_scripts/galatea.unlock/password | ssh galatea.unlock cryptroot-unlock'
 
 alias galatea_sync='rsync -av ~/Workspace/fastai/part2 galatea:~/part2'
+
+# a function that op read -o rootCA-key.pem to get the key and then delete it after mkcert is done
+function mkcert_wrapped () {
+    MKCERT=$(which -p mkcert)
+    F=$($MKCERT --CAROOT)/rootCA-key.pem
+    op read -o "$F" -f -n op://Personal/mkcert/rootCA-key.pem >/dev/null
+    $MKCERT $@
+    rm "$F"
+}
+# if mkcert exists define aliases
+if command -v mkcert &> /dev/null
+then
+  alias mkcert='mkcert_wrapped'
+fi 
