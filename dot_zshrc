@@ -122,3 +122,5 @@ if command -v mkcert &> /dev/null
 then
   alias mkcert='mkcert_wrapped'
 fi 
+
+alias jb_verrucosum='/Applications/Vivaldi.app/Contents/MacOS/Vivaldi --profile-directory='verrucosum' --host-resolver-rules="MAP www.jungleboogie.pl 65.108.76.42"'
