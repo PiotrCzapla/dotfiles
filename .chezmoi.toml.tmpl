@@ -9,7 +9,7 @@
 {{$gdrive := "/tmp/gdrive/config/"}}
 {{if eq .chezmoi.os "darwin"}}
 {{$gdrive = output "bash" "-c" "echo -n /Volumes/GoogleDrive-*/My\\ Drive/config"  }}
-{{else if .colab}}
+{{else if $colab}}
 {{$gdrive = "/gdrive/MyDrive/config/" }}
 {{end}}
 
@@ -22,4 +22,3 @@
     wsl = {{$wsl}}
     gdrive = "{{$gdrive}}"
     conda_home = "{{$conda}}"
-# chezmoi execute-template  '{{.codespaces}} {{.colab}} {{.container}}'
