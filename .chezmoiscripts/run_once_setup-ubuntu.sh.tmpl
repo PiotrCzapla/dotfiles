@@ -3,6 +3,8 @@
 {{if not .container}}
     sudo apt update
 {{end}}
-{{if not .colab}} sudo apt install -y ripgrep {{end}}
+{{if not .colab}} 
+sudo apt install -y ripgrep zoxide zsh
+{{end}}
 
 {{ end -}}
