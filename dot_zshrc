@@ -119,8 +119,6 @@ function galatea_open() {
   ssh galatea
 }
 
-alias galatea_unlock='e'
-
 alias galatea_sync='rsync -av ~/workspace/part2 galatea:~/workspace/part2'
 
 # a function that op read -o rootCA-key.pem to get the key and then delete it after mkcert is done
