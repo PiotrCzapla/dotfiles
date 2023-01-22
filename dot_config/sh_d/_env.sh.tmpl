@@ -18,3 +18,7 @@ if [[ -d $HOME/.local/share/gopass/stores/root ]] && gopass test >/dev/null 2>&1
     export JARVIS_TOKEN=$(gopass jarvislabs/token)
     export JARVIS_USER_ID=$(gopass jarvislabs/user_id)
 fi
+
+{{if .wsl }}
+export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH
+{{end}}
