@@ -9,11 +9,11 @@
 {{$gdrive := "/tmp/gdrive/config/"}}
 {{if eq .chezmoi.os "darwin"}}
 {{$gdrive = output "bash" "-c" "echo -n /Volumes/GoogleDrive-*/My\\ Drive/config"  }}
-{{else if .colab}}
+{{else if $colab}}
 {{$gdrive = "/gdrive/MyDrive/config/" }}
 {{end}}
 
-{{$conda := glob  "{./.local/share/miniconda,/usr/local/mambaforge,/opt/homebrew/Caskroom/mambaforge,./opt/mambaforge,./miniconda3}" | first| replace "./" "$HOME/"}}
+{{$conda := glob  "{./.local/share/miniconda,/usr/local/mambaforge,/opt/homebrew/Caskroom/mambaforge/base,./opt/mambaforge,./miniconda3}" | first| replace "./" "$HOME/"}}
 
 [data]
     colab = {{$colab}}
@@ -22,4 +22,3 @@
     wsl = {{$wsl}}
     gdrive = "{{$gdrive}}"
     conda_home = "{{$conda}}"
-# chezmoi execute-template  '{{.codespaces}} {{.colab}} {{.container}}'

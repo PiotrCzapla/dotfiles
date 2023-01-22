@@ -104,10 +104,22 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias spawn-gpu="op run -- conda run -n spawn-gpu python -m spawn_gpu"
-alias nbdev_release_gh='op run -- nbdev_release_gh'
-alias galatea_unlock='op read -n op://_scripts/galatea.unlock/password | ssh galatea.unlock cryptroot-unlock'
+alias nbdev_release_gh='op run -- nbdev_release_gh' 
 
-alias galatea_sync='rsync -av ~/Workspace/fastai/part2 galatea:~/part2'
+function wait_for_ssh () {
+  while ! ssh $1 echo -x '\nconnected' 2>/dev/null; do echo -n .;sleep 1; done
+}
+
+function galatea_unlock () {
+  wait_for_ssh galatea.unlock
+  op read -n op://_scripts/galatea.unlock/password | ssh galatea.unlock cryptroot-unlock; 
+}
+function galatea_open() {
+  wait_for_ssh galatea
+  ssh galatea
+}
+
+alias galatea_sync='rsync -av ~/workspace/part2 galatea:~/workspace/part2'
 
 # a function that op read -o rootCA-key.pem to get the key and then delete it after mkcert is done
 function mkcert_wrapped () {
@@ -122,3 +134,7 @@ if command -v mkcert &> /dev/null
 then
   alias mkcert='mkcert_wrapped'
 fi 
+
+alias jb_verrucosum='/Applications/Vivaldi.app/Contents/MacOS/Vivaldi --profile-directory='verrucosum' --host-resolver-rules="MAP www.jungleboogie.pl 65.108.76.42"'
+
+PROMPT="%{$fg[cyan]%}$HOST_SHORT ${PROMPT}"
