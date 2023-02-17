@@ -107,7 +107,8 @@ alias spawn-gpu="op run -- conda run -n spawn-gpu python -m spawn_gpu"
 alias nbdev_release_gh='op run -- nbdev_release_gh' 
 
 function wait_for_ssh () {
-  while ! ssh $1 echo -x '\nconnected' 2>/dev/null; do echo -n .;sleep 1; done
+  while ! ssh $1 echo "V" 2>/dev/null; do echo -n .;sleep 1; done
+  echo connected
 }
 
 function galatea_unlock () {
@@ -119,8 +120,9 @@ function galatea_open() {
   ssh galatea
 }
 
-alias galatea_sync='rsync -av ~/workspace/part2 galatea:~/workspace/part2'
-
+alias galatea_sync='rsync -av ~/WorkDL/part2/ galatea:~/workspace/part2/'
+alias talos_sync='rsync -av ~/WorkDL/part2/ wsl.talos:~/workspace/part2/'
+alias sd_sync='rsync -av ~/WorkDL/part2/ sd:~/'
 # a function that op read -o rootCA-key.pem to get the key and then delete it after mkcert is done
 function mkcert_wrapped () {
     MKCERT=$(which -p mkcert)
@@ -138,3 +140,4 @@ fi
 alias jb_verrucosum='/Applications/Vivaldi.app/Contents/MacOS/Vivaldi --profile-directory='verrucosum' --host-resolver-rules="MAP www.jungleboogie.pl 65.108.76.42"'
 
 PROMPT="%{$fg[cyan]%}$HOST_SHORT ${PROMPT}"
+alias talos_start='(sleep 5; open https://localhost:8899) & ssh wsl.talos -L 8899:localhost:8888 -t ./start.sh'
