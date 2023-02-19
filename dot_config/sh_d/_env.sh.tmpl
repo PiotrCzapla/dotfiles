@@ -21,4 +21,6 @@ if [[ -d $HOME/.local/share/gopass/stores/root ]] && gopass test >/dev/null 2>&1
 fi
 {{end}}
 
-source ~/.gnupg/init.sh
+{{if .wsl }}
+export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH
+{{end}}

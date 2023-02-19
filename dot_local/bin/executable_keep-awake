@@ -1,0 +1,18 @@
+#!/bin/zsh
+POWERSHELL=/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe
+function keep_awake_xwindow {
+    xdotool keydown ctrl+alt+shift+F15
+    xdotool keyup ctrl+alt+shift+F15
+}
+function keep_awake_powershell {
+   $POWERSHELL -Command '$wsh = New-Object -ComObject WScript.Shell; $wsh.SendKeys("+{F15}");'
+}
+echo 'keeping pc awake'
+while true; do
+    if [ -e $POWERSHELL ] > /dev/null; then
+        keep_awake_powershell
+    else
+        keep_awake_xwindow
+    fi
+    sleep 59
+done

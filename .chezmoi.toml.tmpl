@@ -13,7 +13,7 @@
 {{$gdrive = "/gdrive/MyDrive/config/" }}
 {{end}}
 
-{{$conda := glob "{./.local/share/miniconda, /usr/local/mambaforge,/opt/homebrew/Caskroom/mambaforge/base,./opt/mambaforge}" | first}}
+{{$conda := glob  "{./.local/share/miniconda,/usr/local/mambaforge,/opt/homebrew/Caskroom/mambaforge/base,./opt/mambaforge,./miniconda3}" | first| replace "./" "$HOME/"}}
 
 [data]
     colab = {{$colab}}
