@@ -11,6 +11,7 @@ alfred/*
 {{else if .colab}}
 dot_zsh_d
 dot_zshrc
+Applications
 {{else}}
 
 {{end}}
