@@ -123,19 +123,19 @@ function galatea_open() {
 alias galatea_sync='rsync -av ~/WorkDL/part2/ galatea:~/workspace/part2/'
 alias talos_sync='rsync -av ~/WorkDL/part2/ wsl.talos:~/workspace/part2/'
 alias sd_sync='rsync -av ~/WorkDL/part2/ sd:~/'
-# a function that op read -o rootCA-key.pem to get the key and then delete it after mkcert is done
-function mkcert_wrapped () {
-    MKCERT=$(which -p mkcert)
-    F=$($MKCERT --CAROOT)/rootCA-key.pem
-    op read -o "$F" -f -n op://Personal/mkcert/rootCA-key.pem >/dev/null
-    $MKCERT $@
-    rm "$F"
+function mkcert() {
+    MKCERT_CMD=$(which -p mkcert 2>/dev/null || which mkcert)
+    [ -x "$MKCERT_CMD" ] || { echo "Error: mkcert not found in PATH." >&2; return 1; }
+    DEFAULT_CAROOT=$("$MKCERT_CMD" --CAROOT)
+    TEMP_CAROOT=$(mktemp -d /tmp/mkcert_caroot.XXXXXX)
+    # trap to clean up the temp dir at the exit
+    trap "rm -rf \"$TEMP_CAROOT\"" EXIT
+    cp "$DEFAULT_CAROOT/rootCA.pem" "$TEMP_CAROOT/" || { echo "Error: Failed to copy rootCA.pem." >&2; return 1; }
+    op read -o "$TEMP_CAROOT/rootCA-key.pem" -f -n "op://Personal/mkcert/rootCA-key.pem" >/dev/null || { echo "Error: Failed to retrieve rootCA-key.pem from 1Password." >&2; return 1; }
+    chmod 600 "$TEMP_CAROOT/rootCA-key.pem"
+
+    CAROOT="$TEMP_CAROOT" "$MKCERT_CMD" "$@"
 }
-# if mkcert exists define aliases
-if command -v mkcert &> /dev/null
-then
-  alias mkcert='mkcert_wrapped'
-fi 
 
 alias jb_verrucosum='/Applications/Vivaldi.app/Contents/MacOS/Vivaldi --profile-directory='verrucosum' --host-resolver-rules="MAP www.jungleboogie.pl 65.108.76.42"'
 
