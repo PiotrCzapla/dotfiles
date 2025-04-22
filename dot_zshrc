@@ -62,7 +62,7 @@ COMPLETION_WAITING_DOTS="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/.config/oh_my_zsh_custom/
+ZSH_CUSTOM="$HOME/.config/sh/oh_my_zsh_custom/"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -77,6 +77,5 @@ ZSH_CUSTOM=$HOME/.config/oh_my_zsh_custom/
 mac_plugins=(brew macos)
 plugins=($mac_plugins git zoxide cp aliases)
 source $ZSH/oh-my-zsh.sh
-
-source ~/.config/*.sh
-source ~/.config/*.zsh
+source $HOME/.config/sh/*.zsh
+PROMPT="%{$fg[cyan]%}$HOST_SHORT ${PROMPT}"

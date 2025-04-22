@@ -64,7 +64,7 @@ function mkcert() {
 
 alias jb_verrucosum='/Applications/Vivaldi.app/Contents/MacOS/Vivaldi --profile-directory='verrucosum' --host-resolver-rules="MAP www.jungleboogie.pl 65.108.76.42"'
 
-PROMPT="%{$fg[cyan]%}$HOST_SHORT ${PROMPT}"
+
 alias talos_start='(sleep 5; open http://localhost:8899) & ssh wsl.talos -L 8899:localhost:8888 -t ./start.sh'
 
 if [ -d "$HOME/.modular" ]; then
