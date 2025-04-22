@@ -1,0 +1,2 @@
+source "$HOME/.bashrc"
+export PS1=':\W\$ '

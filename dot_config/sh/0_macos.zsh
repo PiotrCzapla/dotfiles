@@ -84,13 +84,10 @@ compinit
 fi
 
 
-alias code=code-insiders
-alias devcontainer=devcontainer-insiders
+alias code="code-insiders"
+alias devcontainer="devcontainer-insiders"
+export EDITOR='code-insiders -w -n'
 
-
-# Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
-else
-  export EDITOR='code-insiders -w -n'
 fi
