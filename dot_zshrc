@@ -73,6 +73,8 @@ ZSH_CUSTOM=$HOME/.config/zsh_d/
 # iterm2 - to chagne profiles of iterm with zsh not enabled 
 # man - <esc> man  to see man for previous command
 # macos - tab  ofd cdf 
+
+
 mac_plugins=(brew macos)
 plugins=($mac_plugins git zoxide cp aliases)
 source $ZSH/oh-my-zsh.sh
@@ -142,4 +144,24 @@ alias jb_verrucosum='/Applications/Vivaldi.app/Contents/MacOS/Vivaldi --profile-
 PROMPT="%{$fg[cyan]%}$HOST_SHORT ${PROMPT}"
 alias talos_start='(sleep 5; open http://localhost:8899) & ssh wsl.talos -L 8899:localhost:8888 -t ./start.sh'
 
-eval "$(pixi completion --shell zsh)"
+if [ -d "$HOME/.modular" ]; then
+  if [ -f "$HOME/.modular/bin/magic" ]; then
+    export PATH="$PATH:$HOME/.modular/bin"
+    eval "$(magic completion --shell zsh)"
+  fi
+fi
+if [ -d "$HOME/.pixi" ]; then
+  if [ -f "$HOME/.pixi/bin/pixi" ]; then
+    export PATH="$PATH:$HOME/.pixi/bin"
+    eval "$(pixi completion --shell zsh)"
+  fi
+fi
+
+# not let see if .docker exists
+if [ -d "$HOME/.docker" ]; then
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=($HOME/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
+fi
