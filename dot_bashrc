@@ -1,1 +1,2 @@
-source ~/.config/bash_d/*.sh
+source ~/.config/*.sh
+source ~/.config/*.bash
