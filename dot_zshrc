@@ -73,9 +73,15 @@ ZSH_CUSTOM="$HOME/.config/sh/oh_my_zsh_custom/"
 # iterm2 - to chagne profiles of iterm with zsh not enabled 
 # man - <esc> man  to see man for previous command
 # macos - tab  ofd cdf 
+if [[ "$OSTYPE" == darwin* ]]; then
+    mac_plugins=(brew macos)
+else
+    mac_plugins=()
+fi
 
-mac_plugins=(brew macos)
-plugins=($mac_plugins git zoxide cp aliases)
+plugins=( ${mac_plugins[@]} git zoxide cp aliases )
 source $ZSH/oh-my-zsh.sh
-for src in $HOME/.config/sh/*.zsh; do source $src; done
+for src in $HOME/.config/sh/*.zsh; do 
+    source $src; 
+done
 PROMPT="%{$fg[cyan]%}$HOST_SHORT ${PROMPT}"
