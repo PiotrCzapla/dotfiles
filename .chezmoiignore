@@ -1,12 +1,14 @@
 *.md  
 */*.md
-
 i*.py
 i*.sh
 alfred/*
 **/*.wsl.*
 {{if not .wsl}} *.wsl.* {{end}}
-{{if not (eq .chezmoi.os "darwin")}} *.darwin.* {{end}}
+{{if not (eq .chezmoi.os "darwin")}} 
+*.darwin.* 
+Library
+{{end}}
 
 {{if eq .chezmoi.os "darwin"}}
 {{else if .colab}}
