@@ -233,4 +233,4 @@ EOF
 }
 
 
-
+compdef _files copychat
