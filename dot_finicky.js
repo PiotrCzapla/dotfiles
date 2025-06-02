@@ -15,7 +15,7 @@ module.exports = {
 
     {
       match: [/localhost:.*/],
-      browser: "Arc"
+      browser: "chrome"
     },
     
     {
