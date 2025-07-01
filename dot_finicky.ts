@@ -17,7 +17,7 @@ export default {
       browser: "Google Chrome:jungleboogie.pl"
     }, 
     {
-      match: ["*.gov/*"],
+      match: ["*.gov.pl/*"],
       browser: "Google Chrome:priv"
     },
     {
