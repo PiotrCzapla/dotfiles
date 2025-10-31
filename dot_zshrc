@@ -1,6 +1,9 @@
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 
+# Setup Homebrew PATH early so plugins can find commands
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -75,12 +78,24 @@ ZSH_CUSTOM="$HOME/.config/sh/oh_my_zsh_custom/"
 # man - <esc> man  to see man for previous command
 # macos - tab  ofd cdf 
 if [[ "$OSTYPE" == darwin* ]]; then
-    mac_plugins=(brew macos)
+    mac_plugins=(brew)
 else
     mac_plugins=()
 fi
 
-plugins=( ${mac_plugins[@]} git zoxide cp aliases )
+plugins=( ${mac_plugins[@]} zoxide cp )
+
+# Skip compaudit security check for speed
+ZSH_DISABLE_COMPFIX=true
+
+# Speed up compinit: only regenerate dump once per day
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+    compinit
+else
+    compinit -C
+fi
+
 source $ZSH/oh-my-zsh.sh
 for src in $HOME/.config/sh/*.zsh; do 
     source $src; 
@@ -89,3 +104,5 @@ PROMPT="%{$fg[cyan]%}$HOST_SHORT ${PROMPT}"
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+
+export PYTHONPYCACHEPREFIX=/tmp/pycache
