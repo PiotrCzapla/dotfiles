@@ -9,8 +9,6 @@ export HOST_SHORT=""
 OP_BIOMETRIC_UNLOCK_ENABLED=true
 
 {{onepasswordRead "op://_scripts/macos/env"}}
-export JARVIS_TOKEN={{onepasswordRead "op://_scripts/JarvisLabsAPI/password" }}
-export JARVIS_USER_ID={{onepasswordRead "op://_scripts/JarvisLabsAPI/username" }}
 {{end}}
 
 {{if eq .chezmoi.os "linux"}}
