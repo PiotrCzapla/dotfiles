@@ -78,7 +78,7 @@ ZSH_CUSTOM="$HOME/.config/sh/oh_my_zsh_custom/"
 # man - <esc> man  to see man for previous command
 # macos - tab  ofd cdf 
 if [[ "$OSTYPE" == darwin* ]]; then
-    mac_plugins=(brew)
+    mac_plugins=(brew macos)
 else
     mac_plugins=()
 fi
