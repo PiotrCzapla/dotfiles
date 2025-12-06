@@ -106,3 +106,5 @@ PROMPT="%{$fg[cyan]%}$HOST_SHORT ${PROMPT}"
 #[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
 
 export PYTHONPYCACHEPREFIX=/tmp/pycache
+
+alias python="uv run python" 
