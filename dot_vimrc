@@ -1,5 +1,0 @@
-imap jj <Esc>
-nnoremap ; :
-nnoremap : ;
-vnoremap ; :
-vnoremap : ;
