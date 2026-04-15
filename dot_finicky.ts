@@ -8,6 +8,12 @@ export default {
     checkForUpdates: true
   },
   handlers: [
+    // SolveIt local dev → Chrome priv
+    {
+      match: ["*localhost:5001/*", "*localhost:5001*"],
+      browser: "Google Chrome:priv"
+    },
+
     // Local development → Firefox
     {
       match: ["*localhost:*/"],
@@ -22,7 +28,9 @@ export default {
 
     // Government sites → Chrome priv profile
     {
-      match: ["*.gov.pl/*"],
+      match: ["*.gov.pl/*",
+	"*.orb.local/*",
+      ],
       browser: "Google Chrome:priv"
     },
 
@@ -35,15 +43,21 @@ export default {
       browser: "Vivaldi:Default"
     },
 
-    // SolveIt & related → Arc
+    // SolveIt → Chrome priv
     {
       match: [
         "*solve.it.com*",
         "*si.answer.ai*",
+      ],
+      browser: "Google Chrome:priv"
+    },
+
+    // Arc
+    {
+      match: [
         "*thinkingmachines.ai*",
-        "*github.com*",
-        "*gist.github.com*",
-        "*githubusercontent.com*",
+        "*speakleash.org.pl*",
+        "*bielik.ai*",
       ],
       browser: "Arc"
     },
@@ -51,8 +65,9 @@ export default {
     // Work/Dev tools → Comet
     {
       match: [
-        "*speakleash.org.pl*",
-        "*bielik.ai*",
+        "*github.com*",
+        "*gist.github.com*",
+        "*githubusercontent.com*",
         "*arxiv.org*",
         "*huggingface.co*",
         "*openrouter.ai*",

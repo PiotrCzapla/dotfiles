@@ -1,5 +1,13 @@
 Include ~/.ssh/config.d/*
 
+
+Host my
+	IdentityAgent	$SSH_AUTH_SOCK
+Host turris
+	User root
+	ForwardAgent yes	
+	IdentityAgent	$SSH_AUTH_SOCK
+
 Host *
 	ServerAliveInterval 30
-	IdentityAgent	{{ .chezmoi.homeDir }}/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+	IdentityAgent $SSH_AUTH_SOCK

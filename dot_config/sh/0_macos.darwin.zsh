@@ -22,16 +22,19 @@
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias nbdev_release_gh='op run -- nbdev_release_gh' 
-
 function wait_for_ssh () {
   while ! ssh $1 echo "V" 2>/dev/null; do echo -n .;sleep 1; done
   echo connected
 }
 
 function galatea_unlock () {
+  local bw_session
+
   wait_for_ssh galatea.unlock
-  op read -n op://_scripts/galatea.unlock/password | ssh galatea.unlock cryptroot-unlock; 
+  bw_session="${BW_SESSION:-$(bw unlock --raw)}" || return 1
+  BW_SESSION="$bw_session" bw get item "chezmoi-galatea.unlock" \
+    | jq -er '.login.password' \
+    | ssh galatea.unlock cryptroot-unlock
 }
 function galatea_open() {
   wait_for_ssh galatea
@@ -41,6 +44,9 @@ function galatea_open() {
 alias galatea_sync='rsync -av ~/WorkDL/part2/ galatea:~/workspace/part2/'
 alias talos_sync='rsync -av ~/WorkDL/part2/ wsl.talos:~/workspace/part2/'
 function mkcert() {
+    local bw_session
+    local item_id
+
     MKCERT_CMD=$(which -p mkcert 2>/dev/null || which mkcert)
     [ -x "$MKCERT_CMD" ] || { echo "Error: mkcert not found in PATH." >&2; return 1; }
     DEFAULT_CAROOT=$("$MKCERT_CMD" --CAROOT)
@@ -48,7 +54,9 @@ function mkcert() {
     # trap to clean up the temp dir at the exit
     trap "rm -rf \"$TEMP_CAROOT\"" EXIT
     cp "$DEFAULT_CAROOT/rootCA.pem" "$TEMP_CAROOT/" || { echo "Error: Failed to copy rootCA.pem." >&2; return 1; }
-    op read -o "$TEMP_CAROOT/rootCA-key.pem" -f -n "op://Personal/mkcert/rootCA-key.pem" >/dev/null || { echo "Error: Failed to retrieve rootCA-key.pem from 1Password." >&2; return 1; }
+    bw_session="${BW_SESSION:-$(bw unlock --raw)}" || return 1
+    item_id=$(BW_SESSION="$bw_session" bw get item "chezmoi-mkcert" | jq -er '.id') || return 1
+    BW_SESSION="$bw_session" bw get attachment "rootCA-key.pem" --itemid "$item_id" --output "$TEMP_CAROOT/rootCA-key.pem" >/dev/null || { echo "Error: Failed to retrieve rootCA-key.pem from Bitwarden." >&2; return 1; }
     chmod 600 "$TEMP_CAROOT/rootCA-key.pem"
 
     CAROOT="$TEMP_CAROOT" "$MKCERT_CMD" "$@"

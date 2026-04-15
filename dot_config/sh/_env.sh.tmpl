@@ -8,7 +8,7 @@ export HOST_SHORT=""
 
 OP_BIOMETRIC_UNLOCK_ENABLED=true
 
-{{onepasswordRead "op://_scripts/macos/env"}}
+{{ (bitwardenFields "item" .bw_env_item).env.value }}
 {{end}}
 
 {{if eq .chezmoi.os "linux"}}
