@@ -107,4 +107,10 @@ PROMPT="%{$fg[cyan]%}$HOST_SHORT ${PROMPT}"
 
 export PYTHONPYCACHEPREFIX=/tmp/pycache
 
-alias python="uv run python" 
+python() {
+    if [[ -n "${VIRTUAL_ENV:-}" ]]; then
+        command python "$@"
+    else
+        uv run python "$@"
+    fi
+}
