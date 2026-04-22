@@ -8,6 +8,7 @@ export HOST_SHORT=""
 
 OP_BIOMETRIC_UNLOCK_ENABLED=true
 {{ onepasswordRead "op://_scripts/macos/env" }}
+export SSH_SK_PROVIDER=/usr/lib/ssh-keychain.dylib
 {{end}}
 
 {{if .wsl }}

@@ -1,5 +1,0 @@
-channels:
-  - fastai
-  - pytorch
-  - defaults
-channel_priority: strict

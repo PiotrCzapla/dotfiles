@@ -1,13 +1,14 @@
 Include ~/.ssh/config.d/*
 
 
-Host my
-	IdentityAgent	$SSH_AUTH_SOCK
 Host turris
 	User root
-	ForwardAgent yes	
-	IdentityAgent	$SSH_AUTH_SOCK
+	ForwardAgent yes
 
 Host *
 	ServerAliveInterval 30
-	IdentityAgent $SSH_AUTH_SOCK
+	IdentityFile ~/.ssh/id_ecdsa_sk
+	IdentitiesOnly yes
+	ControlMaster auto
+	ControlPath ~/.ssh/sockets/%r@%h-%p
+	ControlPersist 300

@@ -102,9 +102,6 @@ for src in $HOME/.config/sh/*.zsh; do
 done
 PROMPT="%{$fg[cyan]%}$HOST_SHORT ${PROMPT}"
 
-# Amazon Q post block. Keep at the bottom of this file.
-#[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
-
 export PYTHONPYCACHEPREFIX=/tmp/pycache
 
 python() {

@@ -65,30 +65,6 @@ function mkcert() {
 alias jb_hoya='/Applications/Vivaldi.app/Contents/MacOS/Vivaldi --profile-directory='verrucosum' --host-resolver-rules="MAP www.jungleboogie.pl 100.112.9.92"'
 
 alias talos_start='(sleep 5; open http://localhost:8899) & ssh wsl.talos -L 8899:localhost:8888 -t ./start.sh'
-
-if [ -d "$HOME/.modular" ]; then
-  if [ -f "$HOME/.modular/bin/magic" ]; then
-    export PATH="$PATH:$HOME/.modular/bin"
-    # Lazy load magic completion
-    magic() {
-      unfunction magic
-      eval "$(command magic completion --shell zsh)"
-      magic "$@"
-    }
-  fi
-fi
-if [ -d "$HOME/.pixi" ]; then
-  if [ -f "$HOME/.pixi/bin/pixi" ]; then
-    export PATH="$PATH:$HOME/.pixi/bin"
-    # Lazy load pixi completion
-    pixi() {
-      unfunction pixi
-      eval "$(command pixi completion --shell zsh)"
-      pixi "$@"
-    }
-  fi
-fi
-
 # not let see if .docker exists
 if [ -d "$HOME/.docker" ]; then
 # Docker CLI completions - just add to fpath, compinit already called in .zshrc
@@ -98,3 +74,8 @@ fi
 export EDITOR='code -w -n'
 
 compdef _files copychat
+
+ws-sync() {
+  ssh -O check git@github.com 2>/dev/null || ssh -fN git@github.com
+  command ws-sync --workers 8 "$@"
+}
