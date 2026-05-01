@@ -5,10 +5,14 @@ Host turris
 	User root
 	ForwardAgent yes
 
+Host github.com
+	User git
+	ForwardAgent yes
+	IdentityFile ~/.ssh/github_sk_rk.pub
+	IdentitiesOnly yes
+
 Host *
 	ServerAliveInterval 30
-	IdentityFile ~/.ssh/id_ecdsa_sk
-	IdentitiesOnly yes
 	ControlMaster auto
 	ControlPath ~/.ssh/sockets/%r@%h-%p
 	ControlPersist 300
